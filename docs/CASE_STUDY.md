@@ -2,7 +2,7 @@
 
 ## Business problem
 
-An offline Python lab for on-call responders. It ranks synthetic runbooks with TF-IDF cosine similarity, cites a matching runbook, and asks for review when the match is weak or tied.
+Responders need a cited runbook for incident symptoms and an explicit review outcome when the local catalog provides weak evidence.
 
 ## Reproduce the workflow
 

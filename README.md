@@ -14,6 +14,10 @@ The lab uses two synthetic runbooks. It makes no external calls. The similarity 
 
 Run `make verify` with Make and Python 3 installed. The target runs the documented sample through the project CLI. It also runs the existing Python unit tests.
 
+## Business problem
+
+Responders need a cited runbook for incident symptoms and an explicit review outcome when the local catalog provides weak evidence.
+
 ## Project walkthrough
 
 ```mermaid
