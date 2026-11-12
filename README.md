@@ -9,3 +9,7 @@ Run `python3 retrieve.py "kafka consumer lag"` from the repository. The sample r
 ## Scope
 
 The lab uses two synthetic runbooks. It makes no external calls. The similarity threshold has no production calibration.
+
+## Local verification
+
+Run `make verify` with Make and Python 3 installed. The target runs the documented sample through the project CLI. It also runs the existing Python unit tests.
