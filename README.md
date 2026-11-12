@@ -1,24 +1,12 @@
 # On-call Runbook Retriever
 
-An offline Python lab for on-call responders. It ranks synthetic runbooks with TF-IDF cosine similarity, cites a matching runbook, and asks for review when the match is weak or tied.
-
-## Quick start
-
-Run `python3 retrieve.py "kafka consumer lag"` from the repository. The sample returns `KAFKA-01`. Try `python3 retrieve.py "printer toner"` to see the review decision.
-
-## Scope
-
-The lab uses two synthetic runbooks. It makes no external calls. The similarity threshold has no production calibration.
-
-## Local verification
-
-Run `make verify` with Make and Python 3 installed. The target runs the documented sample through the project CLI. It also runs the existing Python unit tests.
-
-## Business problem
-
 Responders need a cited runbook for incident symptoms and an explicit review outcome when the local catalog provides weak evidence.
 
-## Project walkthrough
+## What I built
+
+I built a local retriever that tokenizes incident symptoms and ranks a small runbook catalog using TF-IDF and cosine similarity. A unique match above the threshold returns a citation and next step. Weak or tied matches go to review.
+
+## How it works
 
 ```mermaid
 flowchart LR
@@ -32,41 +20,43 @@ flowchart LR
     C -->|No| E
 ```
 
-[Architecture and data flow](docs/ARCHITECTURE.md) · [Business problem, demo, and verification](docs/CASE_STUDY.md)
+[Architecture](docs/ARCHITECTURE.md) · [Decision rules and source](docs/RULES.md)
+
+## Tools used
+
+| Tool | Role in this repository |
+| --- | --- |
+| Python | [retrieve.py](retrieve.py) implements the CLI and decision rules. Uses `argparse` to parse command-line options, `collections` to group or count records, `json` to read or write structured records, `math` to compute numeric estimates, `pathlib` to read local files, `re` to match text patterns. |
+| Make | Runs the documented example and the local `unittest` suite. |
+| Python replay runner | Compares actual stdout with the checked-in baseline fixtures. |
+| Ruff and Bandit | Developer lint and static security checks through `make check`. |
 
 ## Run the project
 
-### Local setup
-
-Run `make verify` with Python 3 and Make installed.
-
-### CLI usage
+Use Python 3.10+ and Make. From the repository root:
 
 ```sh
 python3 retrieve.py 'kafka consumer lag'
 ```
 
-### Replay usage
+The Kafka lag query cites KAFKA-01. The unrelated printer query goes to operator review. [Full expected output](examples/Demo%201.stdout.txt)
 
-Run `make replay` to replay the checked-in inputs. The runner compares stdout with the baseline, reports differences, and exits nonzero on regression.
+### Additional replay cases
 
-[Replay cases](examples/replay-manifest.json) · [Generated report](reports/replay.md) · [Rule implementation](docs/RULES.md)
+- **Weak match** · `python3 retrieve.py 'printer toner'` · [Expected output](examples/Weak%20match.stdout.txt)
 
-### Run tests
+## Verify the project
 
-[Verification report](reports/verification.md) · [Business problem, sample behavior, and limitations](docs/CASE_STUDY.md)
+```sh
+make verify
+make replay
+```
 
+`make replay` checks the recorded cases and exits nonzero if the output changes.
+See the [developer guide](docs/DEVELOPMENT.md) for the pinned lint and security tools.
 
-### Limitations
+## Operating limits
 
-The verification report covers the bundled local examples. See the [case study](docs/CASE_STUDY.md) for project-specific assumptions and operating limits.
+The catalog has two synthetic entries. The threshold has no production calibration, and the tool makes no external calls.
 
-## Development and security
-
-See the [developer setup, tool roles, and security checks](docs/DEVELOPMENT.md).
-
-[Local check results](reports/devsecops.md)
-
-## Runbook
-
-[Run, verify, and troubleshoot this project](docs/RUNBOOK.md)
+[Case study](docs/CASE_STUDY.md) · [Operator runbook](docs/RUNBOOK.md) · [Verification report](reports/verification.md)
