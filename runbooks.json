@@ -1,0 +1,12 @@
+[
+  {
+    "id": "KAFKA-01",
+    "symptoms": "kafka consumer lag offset partition",
+    "next_step": "Check consumer lag by partition and compare with input rate."
+  },
+  {
+    "id": "HTTP-01",
+    "symptoms": "http gateway upstream timeout 504",
+    "next_step": "Compare upstream latency and gateway error rate."
+  }
+]
