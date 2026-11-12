@@ -16,4 +16,16 @@ Run `make verify` with Make and Python 3 installed. The target runs the document
 
 ## Project walkthrough
 
+```mermaid
+flowchart LR
+    A["Incident symptoms and local runbook catalog"]
+    B["Rank documents by lexical similarity"]
+    C{"Best score clears threshold and is unique?"}
+    D["Return runbook citation and next step"]
+    E["Request operator review"]
+    A --> B --> C
+    C -->|Yes| D
+    C -->|No| E
+```
+
 [Architecture and data flow](docs/ARCHITECTURE.md) · [Business problem, demo, and verification](docs/CASE_STUDY.md)

@@ -4,11 +4,14 @@ An offline Python lab for on-call responders. It ranks synthetic runbooks with T
 
 ```mermaid
 flowchart LR
-    N0["CLI arguments"]
-    N1["retrieve.py"]
-    N2["Rank runbooks with lexical similarity and defer weak or tied results to an operator."]
-    N3["Result for operator review"]
-    N0 --> N1 --> N2 --> N3
+    A["Incident symptoms and local runbook catalog"]
+    B["Rank documents by lexical similarity"]
+    C{"Best score clears threshold and is unique?"}
+    D["Return runbook citation and next step"]
+    E["Request operator review"]
+    A --> B --> C
+    C -->|Yes| D
+    C -->|No| E
 ```
 
 ## Operational boundaries
