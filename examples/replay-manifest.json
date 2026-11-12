@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Demo 1",
+    "args": [
+      "retrieve.py",
+      "kafka consumer lag"
+    ],
+    "expected": "examples/Demo 1.stdout.txt"
+  },
+  {
+    "name": "Weak match",
+    "args": [
+      "retrieve.py",
+      "printer toner"
+    ],
+    "expected": "examples/Weak match.stdout.txt"
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "decision": "suggest",
+  "citation": "KAFKA-01",
+  "next_step": "Check consumer lag by partition and compare with input rate."
+}
